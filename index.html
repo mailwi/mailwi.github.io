@@ -1,0 +1,24 @@
+<!DOCTYPE html><html><head><title>Kolokaramello</title><meta charset=utf-8><meta name=description content="Kolokaramello site"><meta name=format-detection content="telephone=no"><meta name=msapplication-tap-highlight content=no><meta name=viewport content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width"><link rel=icon type=image/png href=statics/app-logo-128x128.png><link href=css/app.0a145b61.css rel=stylesheet></head><body><canvas id=mainCanvas class=backcanvas style="display: none"></canvas><div id=q-app></div><div class=only-portrait><div id=portrait-info></div></div><script type=x-shader/x-vertex id=vertexshader>varying vec2 vUv;
+
+      void main() {
+
+          vUv = uv;
+
+          gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+      }</script><script type=x-shader/x-fragment id=fragmentshader>uniform sampler2D baseTexture;
+      uniform sampler2D bloomTexture;
+
+      varying vec2 vUv;
+
+      vec4 getTexture( sampler2D texelToLinearTexture ) {
+
+        return mapTexelToLinear( texture2D( texelToLinearTexture , vUv ) );
+
+      }
+
+      void main() {
+
+        gl_FragColor = ( getTexture( baseTexture ) + vec4( 1.0 ) * getTexture( bloomTexture ) );
+
+      }</script><script src=js/vendor.db9aa1f0.js></script><script src=js/app.9cd95656.js></script><script src=js/runtime.f050ec5a.js></script></body></html>
